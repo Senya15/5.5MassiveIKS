@@ -1,28 +1,33 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        String[][] x = new String[7][7];
+        int size;
+        Scanner sc = new Scanner(System.in);
+        do {
+            System.out.println("Введите размер массива: ");
+            while (!sc.hasNextInt()) {
+                System.out.println("Это не число! Введите положительное число:");
+                sc.next();
+            }
+            size = sc.nextInt();
+        } while (size < 0);
+
+        String[][] x = new String[size][size];
         for (int i = 0; i < x.length; i++) {
             for (int j = 0; j < x[i].length; j++) {
-                if (i == 0) {
-                    if (j == 0 || j == x[i].length - 1) {
-                        x[i][j] = "X";
-                    }
-                } else if (x[i - 1][j].equals("X")) {
-                    if (j < x[i].length / 2) {
-                        x[i][j + 1] = "X";
-                    }
-                } else if (j != 6 && x[i - 1][j + 1].equals("X")) {
-                    if (j >= x[i].length / 2) {
-                        x[i][j] = "X";
-                    }
+                if (j == i) {
+                    x[i][j] = "X";
                 }
-                if (x[i][j] == null || !x[i][j].equals("X")) {
-                    x[i][j] = "0";
+                if (j == (x[i].length - 1) - i) {
+                    x[i][j] = "X";
+                }
+                if (x[i][j] == null) {
+                    x[i][j] = " ";
                 }
                 System.out.print(x[i][j]);
             }
             System.out.println("");
         }
-
     }
 }
